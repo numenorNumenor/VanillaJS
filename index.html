@@ -30,6 +30,7 @@
     --gap_mobile: 2.5rem;
     --gap_tablet: 4rem;
     --caption_padding_mobile: 3rem;
+    --btn_semitransparent: rgba(0, 0, 0, 0.747);
 }
 
     html {
@@ -201,6 +202,12 @@
         color: var(--font_color)
     }
 
+    .header__thumbnail {
+        position: relative;
+        width: 100%;
+        max-width: 47.5rem;
+    }
+
     .item__author_thumbnail {
         position: absolute;
         width: 6.4rem;
@@ -208,6 +215,32 @@
         left: calc(var(--gap_mobile) + 1rem); 
         bottom: 0;
         transform: translateY(12rem);
+    }
+
+    .item__view_image {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        letter-spacing: 0.214rem;
+        text-transform: uppercase;
+        background-color: var(--btn_semitransparent);
+        position: absolute;
+        top: calc(var(--gap_mobile) + 1rem);
+        left: calc(var(--gap_mobile) + 1rem);
+        padding: calc(var(--gap_mobile) / 2);
+        color: var(--primary_color);
+    }
+
+    .item__view_image img {
+        width: 100%;
+        max-width: 1.3rem;
+        height: 1.3rem;
+        margin-right: 2rem;
+    }
+
+    .item__view_image p {
+        line-height: 0.5rem;
     }
 
     .content__description {
@@ -285,6 +318,46 @@
         color: var(--font_color);
     }
 
+    .modal {
+        position: fixed;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--btn_semitransparent);
+        z-index: 99999;
+        padding: var(--gap_mobile);
+    }
+
+    .modal__container {
+        width: 100%;
+        max-width: 50rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    .modal .modal__close {
+        margin-left: auto;
+        font-size: 1.4rem;
+        color: var(--primary_color);
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+    }
+
+    .modal img {
+        width: 100%;
+    }
+
+    .modal.active {
+        display: flex;
+    }
+
     @media (min-width: 768px) {
         nav {
             padding: 0 var(--gap_tablet);
@@ -316,10 +389,21 @@
         .item__footer_wrapper {
             padding: 0 var(--gap_tablet);
         }
+
+        .item__author_thumbnail {
+            left: calc(var(--gap_mobile) + 3rem); 
+        }
+
+        .item__view_image {
+            top: calc(var(--gap_tablet));
+            left: calc(var(--gap_tablet) + 1.5rem);
+            padding: calc(var(--gap_tablet) / 2);
+            color: var(--primary_color);
+        }
 }
 
 @media (min-width: 1440px) { 
-    img {
+    .gallery__img {
         max-width: 31rem;
     }
 
@@ -330,7 +414,12 @@
 </style>
 
 <body>
-
+    <div class="modal">
+        <div class="modal__container">
+            <a href="#" class="modal__close">Close</a>
+            <img src="./assets/girl-with-pearl-earring/hero-large.jpg" alt="">
+        </div>
+    </div>
     <header>
         <nav>
             <li>

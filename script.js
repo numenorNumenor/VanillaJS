@@ -2,6 +2,7 @@
 const mainContainer = document.querySelector('main');
 const galleryContainer = document.querySelector('.gallery');
 const startSlideshowBtn = document.querySelector('.nav__start-slideshow');
+const modal = document.querySelector('.modal')
 
 // Data holders
 const galleryItems = [];
@@ -64,6 +65,10 @@ function createDetailedView(item, id = 0) {
     const itemContent = `
     <div class="item__header">
         <img class="header__thumbnail" src="${item.images.thumbnail}" alt="">
+        <a href="#" class="item__view_image">
+            <img class="view_image" src="./assets/shared/icon-view-image.svg">
+            <p class="view_p">View Image</p>
+        </a>
         <div class="item__caption">
             <h2 class="item__title">${item.name}</h2>
             <h5 class="item__author">${item.artist.name}</h5>
@@ -91,6 +96,7 @@ function createDetailedView(item, id = 0) {
     `;
 
     mainContainer.className = 'item__container';
+    mainContainer.setAttribute('data-id', id)
     mainContainer.innerHTML = itemContent;
     updateBorderLength(id);
 }
@@ -185,7 +191,7 @@ function navigateToPage(direction) {
     }
 
     const currentItem = galleryItemsData[currentPageIndex];
-    createDetailedView(currentItem);
+    createDetailedView(currentItem,currentPageIndex);
     updateBorderLength(currentPageIndex);
 }
 
@@ -225,17 +231,37 @@ function toggleSlideshow() {
     updateSlideshowButtonText();
 }
 
+/**
+ * show modal containing bigger picture of an item.
+ */
+
+function showHeroImage(e) {
+    e.preventDefault();
+    modal.classList.toggle('active')
+    if(!e.target.classList.contains('modal__close')) {
+        const parent = e.target.closest('.item__container')
+        const itemID = parent.getAttribute('data-id')
+        const img = modal.querySelector('img')
+        img.src = galleryItemsData[itemID].images.hero.large
+    }
+
+}
+
 // Event listeners
 window.addEventListener('DOMContentLoaded', fetchGalleryData);
 window.addEventListener('resize', handleResize);
 
-mainContainer.addEventListener('click', (e) => {
+document.addEventListener('click', (e) => {
     if (e.target.classList.contains('left')) {
         stopSlideshow();
         navigateToPage('previous');
     } else if (e.target.classList.contains('right')) {
         stopSlideshow();
         navigateToPage('next');
+    } else if (e.target.classList.contains('item__view_image') || e.target.classList.contains('view_image') || e.target.classList.contains('view_p')) {
+        showHeroImage(e)
+    } else if (e.target.classList.contains('modal__close')) {
+        showHeroImage(e)
     }
 });
 
