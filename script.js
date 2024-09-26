@@ -244,6 +244,7 @@ function showHeroImage(e) {
         const img = modal.querySelector('img')
         img.src = galleryItemsData[itemID].images.hero.large
     }
+    stopSlideshow();
 
 }
 
