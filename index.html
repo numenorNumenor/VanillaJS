@@ -25,6 +25,7 @@
     --font: "Libre Baskerville", serif;
     --font_color: #7d7d7d;
     --font_color_secondary: #bbbebf;
+    --font_color_semitransparent: #f3f3f3;
     --font_color_hover: #252525;
     --border__color: #e5e5e5;
     --gap_mobile: 2.5rem;
@@ -206,6 +207,7 @@
         position: relative;
         width: 100%;
         max-width: 47.5rem;
+        object-fit: contain;
     }
 
     .item__author_thumbnail {
@@ -213,7 +215,7 @@
         width: 6.4rem;
         height: 6.4rem;
         left: calc(var(--gap_mobile) + 1rem); 
-        bottom: 0;
+        bottom: -2rem;
         transform: translateY(12rem);
     }
 
@@ -249,6 +251,10 @@
         color: var(--font_color);
     }
 
+    .item__content {
+        position: relative;
+    }
+
     .item__source {
         display: block;
         font-size: 0.9rem;
@@ -257,6 +263,16 @@
         text-transform: uppercase;
         margin-top: 7rem;
         margin-bottom: 15rem;
+    }
+
+    .item__year {
+        position: absolute;
+        top: -7rem;
+        right: var(--gap_mobile);
+        font-weight: bold;
+        font-size: 10rem;
+        color: var(--font_color_semitransparent);
+        z-index: -1;
     }
     .border {
         display: none;
@@ -376,6 +392,11 @@
             gap : var(--gap_tablet)
         }   
 
+        main.item__container {
+            max-width: 136rem;
+            margin: 0 auto;
+        }
+
         .nav__start-slideshow {
             font-size: 1.2rem;
 
@@ -386,25 +407,126 @@
             padding-right: var(--gap_tablet);
         }
 
+        .item__year {
+            font-size: 20rem;
+            left: -6rem;
+            right: auto;
+            top: -11rem;
+        }
+
         .item__footer_wrapper {
             padding: 0 var(--gap_tablet);
         }
 
         .item__author_thumbnail {
-            left: calc(var(--gap_mobile) + 3rem); 
+            left: 53.5rem;
+            top: var(--gap_tablet);
+            width: 12.8rem;
+            height: 12.8rem;
+            transform: none;
         }
 
         .item__view_image {
-            top: calc(var(--gap_tablet));
+            top: auto;
+            bottom: 2rem;
             left: calc(var(--gap_tablet) + 1.5rem);
             padding: calc(var(--gap_tablet) / 2);
             color: var(--primary_color);
         }
+
+        .item__header {
+            padding-top: var(--gap_tablet);
+            margin-bottom: 14rem;
+        }
+
+        .item__header .item__caption {
+            max-width: 44.5rem;
+            left: 24rem;
+            top: var(--gap_tablet);
+            bottom: auto;
+            transform: none;
+        }
+
+        .item__content {
+            max-width: 57.7rem;
+        }
+
+        .item__caption h2 {
+            font-size: 5.6rem;
+            margin-bottom: 2rem;
+        }
+
+        .item__footer .footer__description_title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .item__footer .footer__description_author {
+            font-size: 1.3rem;
+        }
 }
 
 @media (min-width: 1440px) { 
+
+    main.gallery__container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    main.item__container {
+        flex-direction: row;
+        max-height: 90rem;
+    }
+
+    .item__view_image {
+        top: calc(var(--gap_tablet) + 1rem);
+        left: 1rem;
+        bottom: auto;
+    }
+
+    .item__header {
+        margin-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .item__header .item__caption {
+        left: 42rem;
+    }
+
+    /* .header__thumbnail {
+        max-height: 55rem;
+    } */
+
+    .item__content {
+        align-self: center;
+    }
+
+    .content__description {
+        max-width: 35rem;
+        margin-left: auto;
+    }
+
+    .item__year {
+        left: auto;
+        right: 0;
+        top: -15rem;
+    }
+
+    .item__source {
+        margin-bottom: 0;
+        text-align: left;
+        margin-left: 15rem;
+    }
+
+
     .gallery__img {
         max-width: 31rem;
+    }
+
+    nav {
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .nav__logo img {

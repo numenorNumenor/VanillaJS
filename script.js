@@ -76,6 +76,7 @@ function createDetailedView(item, id = 0) {
         <img class="item__author_thumbnail" src="${item.artist.image}" alt="">
     </div>
     <div class="item__content">
+        <p class="item__year">${item.year}</p>
         <p class="content__description">${item.description}</p>
         <a target="_blank" href="${item.source}" class="item__source">go to source</a>
     </div>
@@ -98,7 +99,43 @@ function createDetailedView(item, id = 0) {
     mainContainer.className = 'item__container';
     mainContainer.setAttribute('data-id', id)
     mainContainer.innerHTML = itemContent;
+    adjustThumbnailHeight();
+
+
     updateBorderLength(id);
+}
+
+/**
+ * adjust the top attribute of author thumnnail based on caption height
+ */
+function adjustThumbnailHeight() {
+    
+    
+    if(mainContainer.classList.contains('item__container')) {
+
+        const viewportWidth = window.innerWidth;
+        const itemCaption = mainContainer.querySelector('.item__caption')
+        const itemCaptionHeight = itemCaption.offsetHeight;
+        const authorThumbnail = mainContainer.querySelector('.item__author_thumbnail')
+        const itemSource = mainContainer.querySelector('.item__source')
+        const itemSourcePos = itemSource.getBoundingClientRect();
+
+
+        if(viewportWidth < 768) {
+            authorThumbnail.style.bottom = -2 + 'rem'
+            authorThumbnail.style.top = ''
+        } 
+        else if(viewportWidth >= 768 && viewportWidth < 1440) {
+            authorThumbnail.style.top = (itemCaptionHeight/10) + 4 + 'rem'
+            authorThumbnail.style.bottom = ''
+        } 
+        else if(viewportWidth >= 1440) {
+            console.log(itemSourcePos);
+            authorThumbnail.style.top = ((itemSourcePos.top/10) - 12.8 - 9 ) + 'rem'
+            authorThumbnail.style.bottom = ''
+            
+        }
+    }
 }
 
 /**
@@ -162,7 +199,8 @@ function handleResize() {
         displayItems(galleryItems, 2); // 2 columns for tablets
     } else if (viewportWidth >= 1440 && mainContainer.classList.contains('gallery__container')) {
         displayItems(galleryItems, 4); // 4 columns for large screens
-    }
+    } 
+    adjustThumbnailHeight();
 }
 
 /**
